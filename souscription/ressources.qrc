@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>svg/ajouter.svg</file>
+ 	<file>svg/telecharger.svg</file>
+ 	<file>svg/actualiser.svg</file>
+ 	<file>svg/rechercher.svg</file>
+ 	<file>svg/modifier.svg</file>
+ 	<file>svg/supprimer.svg</file>
+    </qresource>
+</RCC>
