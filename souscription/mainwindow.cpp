@@ -109,15 +109,16 @@ MainWindow::~MainWindow()
 void MainWindow::fichier()
 {
     QFile file("bdd.csv");
+    //vérifié l'ouverture de fichier
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         appliquerFiltreEtPagination();
         return;
     }
 
-    QTextStream in(&file);
-    ui->tableWidget->setRowCount(0);
-
+    QTextStream in(&file);    //lit les textes dans le fichier
+    ui->tableWidget->setRowCount(0);    //initialise le tableau
+    //lit le fichier ligne par ligne jusqu'à la fin
     while (!in.atEnd())
     {
         QString nom = in.readLine().trimmed();
@@ -151,9 +152,9 @@ void MainWindow::sauvegarderFichier()
 // ─────────────────────────────────────────────
 void MainWindow::ajouterLigne(const QString &nom)
 {
-    int row = ui->tableWidget->rowCount();
-    ui->tableWidget->insertRow(row);
-    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(nom));
+    int row = ui->tableWidget->rowCount();    //retourne le nombre de ligne dans le tableau
+    ui->tableWidget->insertRow(row);    //insérer une ligne après la dernière position
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(nom));    //mettre le texte
 
     QWidget *cellWidget = new QWidget();
     QHBoxLayout *layout = new QHBoxLayout(cellWidget);
@@ -161,12 +162,14 @@ void MainWindow::ajouterLigne(const QString &nom)
     QPushButton *btnEdit   = new QPushButton();
     QPushButton *btnDelete = new QPushButton();
 
+    //Icôde modifier
     btnEdit->setIcon(colorizeIcon(":/svg/modifier.svg", QColor("#4A90D9"), QSize(20, 20)));
     btnEdit->setIconSize(QSize(20, 20));
     btnEdit->setFixedSize(32, 32);
     btnEdit->setToolTip("Modifier");
     btnEdit->setFlat(true);
 
+    //Icône supprimer
     btnDelete->setIcon(colorizeIcon(":/svg/supprimer.svg", QColor("#E74C3C"), QSize(20, 20)));
     btnDelete->setIconSize(QSize(20, 20));
     btnDelete->setFixedSize(32, 32);
@@ -186,7 +189,7 @@ void MainWindow::ajouterLigne(const QString &nom)
         QMessageBox msg(this);
         msg.setWindowTitle("Confirmation");
         msg.setText("Voulez-vous vraiment supprimer cette entrée ?");
-        msg.setStandardButtons(QMessageBox::NoButton);
+        msg.setStandardButtons(QMessageBox::NoButton);    //supprimer les bouttons standard de Qt
         QPushButton *btnOui = msg.addButton("Oui", QMessageBox::YesRole);
         QPushButton *btnNon = msg.addButton("Non", QMessageBox::NoRole);
         msg.setIcon(QMessageBox::Critical);
