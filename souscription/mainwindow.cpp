@@ -40,18 +40,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Table
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidget->verticalHeader()->setVisible(false);
-    ui->tableWidget->setColumnCount(2);
-    ui->tableWidget->setHorizontalHeaderLabels({"Nom", "Action"});
-    ui->tableWidget->setColumnWidth(0, 512);
-    ui->tableWidget->setColumnWidth(1, 158);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //pour éviter d'éditer le tableau sans ciquer sur le boutton éditer
+    ui->tableWidget->verticalHeader()->setVisible(false);    //effacer les numéros de ligne
+    ui->tableWidget->setColumnCount(2);    //nombre de colonne
+    ui->tableWidget->setHorizontalHeaderLabels({"Nom", "Action"});    //titre de chaque colonne
+    ui->tableWidget->setColumnWidth(0, 512);    //taille fixe de colonne 1 
+    ui->tableWidget->setColumnWidth(1, 158);    //taille fixe de colonne 2
 
-    // Champs texte
+    // Champs texte, placeholder
     ui->lineEdit->setPlaceholderText("Entrer un nom...");
     ui->lineEdit_2->setPlaceholderText("Recherche...");
 
-    // ComboBox
+    // ComboBox, selection, placeholder
     ui->comboBox->addItem("Croissant");
     ui->comboBox->addItem("Décroissant");
     ui->comboBox->setCurrentIndex(-1);
