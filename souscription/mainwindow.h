@@ -37,7 +37,7 @@ private:
     int           m_currentPage = 0;
     QList<int>    m_lignesFiltrees;
 
-    // Helpers
+    //Méthode
     QIcon colorizeIcon(const QString &svgPath, const QColor &color, const QSize &size);
     void  fichier();
     void  sauvegarderFichier();
