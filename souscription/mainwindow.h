@@ -46,6 +46,11 @@ private:
     void  afficherPage(int page);
     void  mettreAJourPagination();
     int   rowsPerPage();
+
+    //Historiques
+    QVector <QStringList> historiques;
+    void EtatActuel();
+    void EtatApres();
 };
 
 #endif // MAINWINDOW_H
