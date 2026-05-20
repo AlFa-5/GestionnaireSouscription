@@ -91,6 +91,10 @@ MainWindow::MainWindow(QWidget *parent)
         afficherPage(m_currentPage + 1);
     });
 
+    // Raccourci Ctrl+Z
+    QShortcut *shortcut = new QShortcut(QKeySequence::Undo, this);
+    connect(shortcut, &QShortcut::activated, this, &MainWindow::EtatApres);
+
     // Chargement initial
     fichier();
 }
@@ -201,6 +205,7 @@ void MainWindow::ajouterLigne(const QString &nom)
         {
             if (ui->tableWidget->cellWidget(r, 1) == cellWidget)
             {
+                EtatActuel();
                 ui->tableWidget->removeRow(r);
                 sauvegarderFichier();
                 appliquerFiltreEtPagination();
@@ -225,6 +230,7 @@ void MainWindow::ajouterLigne(const QString &nom)
 
                 if (ok && !newNom.trimmed().isEmpty())
                 {
+                    EtatActuel();
                     item->setText(newNom.trimmed());
                     sauvegarderFichier();
                 }
@@ -365,5 +371,30 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
     else if (index == 1)
         ui->tableWidget->sortItems(0, Qt::DescendingOrder);
 
+    appliquerFiltreEtPagination();
+}
+
+void MainWindow::EtatActuel(){
+    QStringList etat;
+    for(int i = 0; i < ui->tableWidget->rowCount(); i++){
+        QTableWidgetItem *item = ui->tableWidget->item(i, 0);
+        if (item && !item->text().isEmpty()){
+            etat.append(item->text());
+        }
+        historiques.append(etat);
+    }
+}
+
+void MainWindow::EtatApres(){
+    if (historiques.empty()){
+        return;
+    }
+    QStringList etat = historiques.back();
+    historiques.pop_back();
+    ui->tableWidget->setRowCount(0);
+    for(const QString &nom : etat){
+        ajouterLigne(nom);
+    }
+    sauvegarderFichier();
     appliquerFiltreEtPagination();
 }
