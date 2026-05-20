@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     // Raccourci Ctrl+Z
-    QShortcut *shortcut = new QShortcut(QKeySequence::Undo, this);
+    QShortcut *shortcut = new QShortcut(QKeySequence::Undo, this, nullptr, nullptr, Qt::ApplicationShortcut);
     connect(shortcut, &QShortcut::activated, this, &MainWindow::EtatApres);
 
     // Chargement initial
@@ -209,6 +209,7 @@ void MainWindow::ajouterLigne(const QString &nom)
                 ui->tableWidget->removeRow(r);
                 sauvegarderFichier();
                 appliquerFiltreEtPagination();
+                ui->tableWidget->setFocus();
                 break;
             }
         }
